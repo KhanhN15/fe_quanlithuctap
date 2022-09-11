@@ -343,3 +343,17 @@ input {
     opacity: 0.5;
     user-select: none;
 }
+
+.mg-auto{
+    margin: 0 auto;
+}
+
+.cancel{
+    margin-left: 20px;
+    color: rgb(159, 61, 61);
+    cursor: pointer;
+}
+.btn-red{
+    background-color:rgb(159, 61, 61) ;
+    color: white;
+}

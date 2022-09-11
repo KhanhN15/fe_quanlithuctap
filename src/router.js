@@ -18,6 +18,10 @@ import DetailStudentManager from "./page/DetailStudentManager";
 import SubjectLeaderListStudent from "./page/SubjectLeaderListStudent";
 import SubjectLeaderHasDone from "./page/SubjectLeaderHasDone";
 import FacutlyLeader from "./page/FacutyLeader";
+import DoanhNghiep from "./page/DoanhNghiep";
+import AdminManageAccount from "./page/AdminManagerAccount";
+import ListManagerAccount from "./page/ListManagerAccount";
+import DetailAccount from "./page/DetailAccount";
 
 const routes = [
   {
@@ -95,7 +99,7 @@ const routes = [
     main: () => <ListStudentManager />,
   },
   {
-    path: "/home/detail-student-manager",
+    path: "/home/detail-student-manager/:id",
     exact: true,
     main: () => <DetailStudentManager />,
   },
@@ -113,6 +117,26 @@ const routes = [
     path: "/home/facutly-leader",
     exact: true,
     main: () => <FacutlyLeader />,
+  },
+  {
+    path: "/home/list-doanh-nghiep",
+    exact: true,
+    main: () => <DoanhNghiep />,
+  },
+  {
+    path: "/home/admin-manager-account",
+    exact: true,
+    main: () => <AdminManageAccount />,
+  },
+  {
+    path: "/home/list-manager-account",
+    exact: true,
+    main: () => <ListManagerAccount />,
+  },
+  {
+    path: "/home/detail-account/:id",
+    exact: true,
+    main: () => <DetailAccount />,
   },
 ];
 

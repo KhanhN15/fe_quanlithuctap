@@ -17,7 +17,8 @@ export default class Home extends Component {
           <div className="introduction">
             <h1 className="manage">
               Mọi thứ
-              <div id="_manage">cần thiết cho việc</div> đăng ký đồ án sinh viên
+              <div id="_manage">cần thiết cho việc</div> đăng ký thực tập doanh
+              nghiệp
             </h1>
             <div className="manage_1">
               <img

@@ -217,8 +217,8 @@ class Login extends Component {
             <App_logo_container>
               <App_logo src={AppLogo} />
               <Comment>Hệ thống hỗ trợ quản lý sinh viên</Comment>
-              <Comment1>Xây dựng và phát triển bởi Khanhbatluc</Comment1>
-              <Comment2>Trường Đại học Việt Nam </Comment2>
+              <Comment1>Xây dựng và phát triển bởi Nguyễn Phương Linh</Comment1>
+              <Comment2>Trường Đại học Mỏ Địa Chất </Comment2>
             </App_logo_container>
             <Form_container>
               <Form action="" method="post" onSubmit={this.submit}>
@@ -232,7 +232,7 @@ class Login extends Component {
                     type="text"
                     required
                     name="username"
-                    placeholder="Email đăng nhập"
+                    placeholder="Tên đăng nhập"
                     value={this.state.username}
                     onChange={this.handle}
                     autoFocus

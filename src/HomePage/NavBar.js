@@ -196,20 +196,22 @@ class NavBar extends Component {
                 <span className="tooltip">Trang chủ</span>
               </li>
 
-              <li
-                className={chooseNoti ? "home" : ""}
-                onClick={this.chooseNoti}
-              >
-                <Link to="/home/enterprise">
-                  {/* thong bao */}
-                  <div className="icon">
-                    <IoIosPersonAdd />
-                  </div>
-                  <span className="links_name">Đăng Ký</span>
-                </Link>
-                <span className="tooltip">Đăng Ký Thực Tập Doanh Nghiệp</span>
-              </li>
-              {idEnterprise && role == "student" && (
+              {role == "student" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/enterprise">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <IoIosPersonAdd />
+                    </div>
+                    <span className="links_name">Đăng Ký</span>
+                  </Link>
+                  <span className="tooltip">Đăng Ký Thực Tập Doanh Nghiệp</span>
+                </li>
+              )}
+              {role == "student" && (
                 <li
                   className={chooseChat ? "home" : ""}
                   onClick={this.chooseChat}
@@ -222,6 +224,81 @@ class NavBar extends Component {
 
                     <span className="tooltip">Xác Nhận Doanh Nghiệp</span>
                   </Link>
+                </li>
+              )}
+              {role == "subjectLeader" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/subject-leader">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-book"></i>
+                    </div>
+                    <span className="links_name">Quản Lí</span>
+                  </Link>
+                  <span className="tooltip">Quản Lí Bộ Môn</span>
+                </li>
+              )}
+              {role == "facultyLeader" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/facutly-leader">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-book"></i>
+                    </div>
+                    <span className="links_name">Quản Lí</span>
+                  </Link>
+                  <span className="tooltip">Quản Lí Khoa</span>
+                </li>
+              )}
+              {role == "enterprise" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/list-doanh-nghiep">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-book"></i>
+                    </div>
+                    <span className="links_name">Doanh Nghiệp</span>
+                  </Link>
+                  <span className="tooltip">Về Doanh Nghiệp</span>
+                </li>
+              )}
+              {role == "teacher" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/list-student-manager">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-book"></i>
+                    </div>
+                    <span className="links_name">Giảng Viên</span>
+                  </Link>
+                  <span className="tooltip">Danh Sách Giảng Viên Quản Lí</span>
+                </li>
+              )}
+              {role == "admin" && (
+                <li
+                  className={chooseNoti ? "home" : ""}
+                  onClick={this.chooseNoti}
+                >
+                  <Link to="/home/list-manager-account">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-person"></i>
+                    </div>
+                    <span className="links_name">Quản Lí</span>
+                  </Link>
+                  <span className="tooltip">Quản Lí Sinh Viên</span>
                 </li>
               )}
               <li className="logout" onClick={this.chooseLogout}>
