@@ -10318,6 +10318,13 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-html-table-to-excel@^2.0.0":
+  "integrity" "sha512-afvcCtQWZPfen3D+UFu9YMHleQqpVm3manmiWaxr0wv76hx+BkQ0/nkOI1UyQs29pzAUWtZDiD9Eu/MqsDOEJw=="
+  "resolved" "https://registry.npmjs.org/react-html-table-to-excel/-/react-html-table-to-excel-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "prop-types" "^15.5.10"
+
 "react-icons@^4.3.1":
   "integrity" "sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg=="
   "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.4.0.tgz"

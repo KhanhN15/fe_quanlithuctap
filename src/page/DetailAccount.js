@@ -8,6 +8,8 @@ import axios from "axios";
 import { getDataLocalStorage, CONSTANT } from "../API/Config";
 import { useHistory } from "react-router-dom";
 import * as Config from "../API/Config";
+import { checkStatus } from "../API/Config";
+import { toast } from "react-toastify";
 
 const Title = styled.h2`
   text-align: center;
@@ -87,6 +89,10 @@ const Btn_site = styled.div`
 const DetailAccount = () => {
   const { id } = useParams();
   const [student, setStudent] = useState({});
+  const [assign, setAssign] = useState([]);
+  const [status, setStatus] = useState(false);
+
+  const { role } = getDataLocalStorage();
 
   useEffect(async () => {
     try {
@@ -94,10 +100,59 @@ const DetailAccount = () => {
       if (res) {
         setStudent(res.data.data);
       }
+      const resA = await axios.get(
+        `${Config.API_URL}/show-detail-assign-by-student/${id}`
+      );
+      if (resA) {
+        console.log("====================================");
+        console.log(resA);
+        console.log("====================================");
+        setAssign(resA.data.data);
+      }
     } catch (error) {
       console.log("error");
     }
-  }, []);
+  }, [status]);
+
+  const setPoint = (arra) => {
+    let point = 0;
+    for (let index = 0; index < arra.length; index++) {
+      const element = arra[index].point;
+      const p = +element;
+      point += p;
+    }
+    return point;
+  };
+
+  const handleChange = (tag, e) => {
+    setStudent({
+      ...student,
+      [tag]: e,
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!student.name || !student.birthday || !student.address) {
+      toast.error("Vui lòng không để trống các trường");
+    } else {
+      try {
+        const res = await axios.put(`${Config.API_URL}/edit-account/${id}`, {
+          name: student.name,
+          birthday: student.birthday,
+          address: student.address,
+        });
+        if (res) {
+          setStatus(!status);
+          toast.success("Cập nhật thành công");
+        }
+      } catch (error) {
+        console.log("====================================");
+        console.log("error submit");
+        console.log("====================================");
+      }
+    }
+  };
+
   return (
     <div className="container">
       <Title>Thông tin cá nhân</Title>
@@ -119,6 +174,7 @@ const DetailAccount = () => {
                 style={{ width: "90%" }}
                 type="text"
                 name="name"
+                onChange={(e) => handleChange("name", e.target.value)}
                 value={student.name}
               />
               <p style={{ marginTop: "10px" }}>Ngày sinh:</p>
@@ -126,6 +182,7 @@ const DetailAccount = () => {
                 style={{ width: "90%" }}
                 type="text"
                 name="birthday"
+                onChange={(e) => handleChange("birthday", e.target.value)}
                 value={student.birthday}
               />
             </Left_div>
@@ -139,53 +196,46 @@ const DetailAccount = () => {
                   resize: "none",
                   minHeight: "9rem",
                 }}
+                onChange={(e) => handleChange("address", e.target.value)}
                 value={student.address}
                 name="address"
               />
             </Right_div>
           </Infor>
         </Infor_site>
-        <Gpa_site>
-          <Title_gpa>Địa Điểm thực tập</Title_gpa>
-          <p>{student?.idEnterprise?.nameEnterprise}</p>
-          <br />
-          <progress min="0" max="158" value="ewq"></progress>
-          <p style={{ marginTop: "30px" }}>Điểm trung bình : </p>
-          <label>{"dsds"}</label>
-          <p>Trạng thái: </p>
-          {/* <label
-            className={
-              status === "Khen thưởng" || status === "Không"
-                ? "change_status_green"
-                : "change_status_red"
-            }
-          >
-            {status}
-          </label> */}
-        </Gpa_site>
+        {student.role === "student" && (
+          <Gpa_site>
+            <Title_gpa>Địa Điểm thực tập</Title_gpa>
+            <p>{student?.idEnterprise?.nameEnterprise}</p>
+            <br />
+            <progress min="0" max="10" value={setPoint(assign)}></progress>
+            <p style={{ marginTop: "30px" }}>Điểm trung bình : </p>
+            <label>{setPoint(assign)}</label>
+            <p>Trạng thái: </p>
+            <label htmlFor="">{checkStatus(student.isAccept)}</label>
+          </Gpa_site>
+        )}
       </Site>
-      <Btn_site>
-        {/* <Link
-            to='/home/list-students'
-            className='goback btn btn-danger'
-            style={{ marginRight: "20px" }}>
-            <span className='fa fa-arrow-left'></span> &nbsp; Quay lại
-          </Link> */}
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ marginRight: "20px" }}
-        >
-          <span className="fa fa-save"></span> &nbsp; Ghi nhận
-        </button>
-        <Link
-          to="/home/change-password"
-          className="btn btn-primary"
-          style={{ marginRight: "20px" }}
-        >
-          <span className="fa fa-key"></span> &nbsp; Đổi mật khẩu
-        </Link>
-      </Btn_site>
+
+      {role === "admin" && (
+        <Btn_site>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ marginRight: "20px" }}
+            onClick={handleSubmit}
+          >
+            <span className="fa fa-save"></span> &nbsp; Ghi nhận
+          </button>
+          <Link
+            to="/home/list-manager-account"
+            className="btn btn-warning"
+            style={{ marginRight: "20px" }}
+          >
+            <span className="fa fa-key"></span> &nbsp; Quay Lại
+          </Link>
+        </Btn_site>
+      )}
     </div>
   );
 };

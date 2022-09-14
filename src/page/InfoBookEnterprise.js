@@ -153,7 +153,7 @@ const InfoEnterprise = () => {
 
       {/* review here */}
       <div className="title__enterprise">
-        <h2>Tiến Độ Đồ Án</h2>
+        <h2>Tiến Độ Thực Tập</h2>
       </div>
       {infoEnterprise?.isAccept === CONSTANT.DONE &&
         infoEnterprise?.isTeacherAccept === CONSTANT.DONE && (

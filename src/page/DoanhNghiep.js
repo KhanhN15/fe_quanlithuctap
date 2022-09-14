@@ -73,16 +73,6 @@ const DoanhNghiep = () => {
             alt=""
           />
           <h4 className="name-chinh">{enterprise.nameEnterprise}</h4>
-          {/* <ul>
-            <li>Lớp : {student.lop} </li>
-            <li>Địa Chỉ: {student.address}</li>
-            <li>
-              Công Ty Đang Thực Tập : {student?.idEnterprise?.nameEnterprise}
-            </li>
-            <li className="text-italy attention-here">
-              Sinh Viên Thuộc Quyền Quản Lí Của Bạn
-            </li>
-          </ul> */}
         </div>
         <div className="main_detail_right">
           <table class="table w-80p">
@@ -100,7 +90,13 @@ const DoanhNghiep = () => {
               {listEnterprise?.map((item, index) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
-                  <td>{item.img}</td>
+                  <td>
+                    <img
+                      src={item.img}
+                      className={"img_main_detail_st"}
+                      alt=""
+                    />
+                  </td>
                   <td>{item.name}</td>
                   <td>{item.birthday}</td>
                   <td>

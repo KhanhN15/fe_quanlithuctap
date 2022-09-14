@@ -4,15 +4,16 @@ import * as Config from "../API/Config";
 import { toast } from "react-toastify";
 import { getDataLocalStorage, CONSTANT, permission } from "../API/Config";
 import { useHistory } from "react-router-dom";
+import PopTooltip from "../components/PopTooltip";
 
-const ListManagerAccount = () => {
+const ListManagerEnterprise = () => {
   const [student, setStudent] = useState([]);
   const [status, setStatus] = useState(false);
   const history = useHistory();
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`${Config.API_URL}/show-list-student`);
+      const res = await axios.get(`${Config.API_URL}/show-all-enterprise`);
       if (res) {
         setStudent(res.data.data);
       }
@@ -24,27 +25,19 @@ const ListManagerAccount = () => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        `${Config.API_URL}/delete-account-student/${id}`
+        `${Config.API_URL}/delete-account-enterprise/${id}`
       );
       if (res) {
         setStatus(true);
-        toast.success("Xóa Tài Khoản Thành Công");
+        toast.success("Xóa Doanh Nghiệp Thành Công");
       }
     } catch (error) {
       console.log("error");
     }
   };
 
-  const redirectPage = (id) => {
-    history.push(`/home/detail-account/${id}`);
-  };
-
   const handleRedirectCreate = () => {
-    history.push(`/home/admin-manager-account`);
-  };
-
-  const redirectToHere = () => {
-    history.push(`/home/list-student-has-enterprise`);
+    history.push(`/home/create-account-enterprise`);
   };
 
   return (
@@ -54,20 +47,10 @@ const ListManagerAccount = () => {
           className="btn btn-success"
           style={{
             float: "right",
-            marginLeft: "10px",
           }}
           onClick={handleRedirectCreate}
         >
           Thêm Người Dùng
-        </button>
-        <button
-          className="btn btn-success"
-          style={{
-            float: "right",
-          }}
-          onClick={redirectToHere}
-        >
-          Danh Sách Các Học Sinh Đã Có Doanh Nghiệp
         </button>
         <h2>Danh Sách Người Dùng</h2>
       </div>
@@ -75,11 +58,9 @@ const ListManagerAccount = () => {
         <thead class="thead-dark">
           <tr>
             <th scope="col">Số Thứ Tự</th>
-            <th scope="col">Tên Sinh Viên</th>
-            <th scope="col">Quyền</th>
-            <th scope="col">Lớp</th>
-            <th scope="col">Ngày Sinh</th>
-            <th scope="col">Địa Chỉ</th>
+            <th scope="col">Tên Doanh Nghiệp</th>
+            <th scope="col">Hình Ảnh</th>
+            <th scope="col">Mô tả</th>
             <th scope="col">Trạng Thái</th>
           </tr>
         </thead>
@@ -87,23 +68,24 @@ const ListManagerAccount = () => {
           {student?.map((item, index) => (
             <tr key={item._id}>
               <td>{index + 1}</td>
-              <td>{item.name}</td>
-              <td style={{ color: "green" }}>{permission(item.role)}</td>
-              <td>{item.lop}</td>
-              <td>{item.birthday}</td>
-              <td>{item.address}</td>
+              <td>{item.nameEnterprise}</td>
+              <td style={{ color: "green" }}>
+                <img
+                  src={item.imgEnterprise}
+                  style={{
+                    height: "100px",
+                    width: "100px",
+                    objectFit: "cover",
+                  }}
+                  alt=""
+                />
+              </td>
               <td>
-                <button
-                  className="btn btn-warning"
-                  style={{ marginRight: "10px" }}
-                  onClick={() => redirectPage(item._id)}
-                >
-                  <i
-                    class="fa-sharp fa-solid fa-circle-info"
-                    style={{ margin: "0 10px" }}
-                  ></i>
-                  Xem Chi Tiết
-                </button>
+                <PopTooltip description={item?.descriptionEnterprise}>
+                  <div className="cut-text">{item.descriptionEnterprise}</div>
+                </PopTooltip>
+              </td>
+              <td>
                 <button
                   className="btn btn-red"
                   onClick={() => handleDelete(item._id)}
@@ -123,4 +105,4 @@ const ListManagerAccount = () => {
   );
 };
 
-export default ListManagerAccount;
+export default ListManagerEnterprise;

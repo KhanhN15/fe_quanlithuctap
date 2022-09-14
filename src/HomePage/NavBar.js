@@ -298,7 +298,22 @@ class NavBar extends Component {
                     </div>
                     <span className="links_name">Quản Lí</span>
                   </Link>
-                  <span className="tooltip">Quản Lí Sinh Viên</span>
+                  <span className="tooltip">Quản Lí Người Dùng</span>
+                </li>
+              )}
+              {role == "admin" && (
+                <li
+                  className={chooseChart ? "home" : ""}
+                  onClick={this.chooseChart}
+                >
+                  <Link to="/home/list-all-enterprise">
+                    {/* thong bao */}
+                    <div className="icon">
+                      <i className="fa-solid fa-building"></i>
+                    </div>
+                    <span className="links_name">Quản Lí</span>
+                  </Link>
+                  <span className="tooltip">Quản Lí Doanh Nghiệp</span>
                 </li>
               )}
               <li className="logout" onClick={this.chooseLogout}>

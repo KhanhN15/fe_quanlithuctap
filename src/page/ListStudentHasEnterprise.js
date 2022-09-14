@@ -4,15 +4,22 @@ import * as Config from "../API/Config";
 import { toast } from "react-toastify";
 import { getDataLocalStorage, CONSTANT, permission } from "../API/Config";
 import { useHistory } from "react-router-dom";
+import ReactHtmlTableToExcel from "react-html-table-to-excel";
 
-const ListManagerAccount = () => {
+const ListStudentHasEnterprise = () => {
   const [student, setStudent] = useState([]);
   const [status, setStatus] = useState(false);
   const history = useHistory();
 
+  const redirectPage = (id) => {
+    history.push(`/home/detail-account/${id}`);
+  };
+
   useEffect(async () => {
     try {
-      const res = await axios.get(`${Config.API_URL}/show-list-student`);
+      const res = await axios.get(
+        `${Config.API_URL}/get-student-has-enterprise`
+      );
       if (res) {
         setStudent(res.data.data);
       }
@@ -35,43 +42,12 @@ const ListManagerAccount = () => {
     }
   };
 
-  const redirectPage = (id) => {
-    history.push(`/home/detail-account/${id}`);
-  };
-
-  const handleRedirectCreate = () => {
-    history.push(`/home/admin-manager-account`);
-  };
-
-  const redirectToHere = () => {
-    history.push(`/home/list-student-has-enterprise`);
-  };
-
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
-        <button
-          className="btn btn-success"
-          style={{
-            float: "right",
-            marginLeft: "10px",
-          }}
-          onClick={handleRedirectCreate}
-        >
-          Thêm Người Dùng
-        </button>
-        <button
-          className="btn btn-success"
-          style={{
-            float: "right",
-          }}
-          onClick={redirectToHere}
-        >
-          Danh Sách Các Học Sinh Đã Có Doanh Nghiệp
-        </button>
         <h2>Danh Sách Người Dùng</h2>
       </div>
-      <table class="table w-80p">
+      <table class="table w-80p" id="student">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Số Thứ Tự</th>
@@ -80,7 +56,9 @@ const ListManagerAccount = () => {
             <th scope="col">Lớp</th>
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Địa Chỉ</th>
-            <th scope="col">Trạng Thái</th>
+            <th scope="col">Khoa</th>
+            <th scope="col">Giảng Viên Hỗ Trợ</th>
+            <th scope="col">Tên Doanh Nghiệp</th>
           </tr>
         </thead>
         <tbody>
@@ -92,7 +70,8 @@ const ListManagerAccount = () => {
               <td>{item.lop}</td>
               <td>{item.birthday}</td>
               <td>{item.address}</td>
-              <td>
+              <td>{item?.idDepartment?.nameDepartment}</td>
+              {/* <td>
                 <button
                   className="btn btn-warning"
                   style={{ marginRight: "10px" }}
@@ -114,13 +93,27 @@ const ListManagerAccount = () => {
                   ></i>
                   Xóa
                 </button>
-              </td>
+              </td> */}
+              <td>{item?.idTeacher?.name}</td>
+              <td>{item?.idEnterprise?.nameEnterprise}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="list-button">
+        <ReactHtmlTableToExcel
+          className="btn btn-success"
+          style={{
+            margin: "0 auto",
+          }}
+          table="student"
+          filename="Danh Sách Sinh Viên Đã Có Doanh Nghiệp"
+          sheet="Sheet"
+          buttonText="Export To Excel"
+        />
+      </div>
     </div>
   );
 };
 
-export default ListManagerAccount;
+export default ListStudentHasEnterprise;

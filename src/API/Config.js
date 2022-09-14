@@ -35,3 +35,31 @@ export const converstDate = (date) => {
   const newD = new Date(date);
   return newD.toUTCString();
 };
+
+export const permission = (role) => {
+  let string = "";
+  switch (role) {
+    case "student":
+      string = "Học Sinh";
+      break;
+    case "teacher":
+      string = "Giảng Viên";
+      break;
+    case "subjectLeader":
+      string = "Quản Lí Bộ Môn";
+      break;
+    case "facultyLeader":
+      string = "Quản Lí Khoa";
+      break;
+    case "enterprise":
+      string = "Doanh Nghiệp";
+      break;
+    case "admin":
+      string = "Quản Trị Viên";
+      break;
+    default:
+      string = "Học Sinh";
+      break;
+  }
+  return string;
+};

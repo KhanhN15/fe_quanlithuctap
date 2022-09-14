@@ -13,6 +13,8 @@ const FacutlyLeader = () => {
   const [department, setDepartment] = useState("");
   const [teacher, setTeacher] = useState("");
 
+  const history = useHistory();
+
   useEffect(async () => {
     try {
       const res = await axios.get(`${Config.API_URL}/show-depart`);
@@ -69,6 +71,10 @@ const FacutlyLeader = () => {
 
   const handleSelectTeacher = (i) => {
     setTeacher(i.target.value);
+  };
+
+  const redirect = (id) => {
+    history.push(`/home/detail-account/${id}`);
   };
 
   return (
@@ -130,7 +136,9 @@ const FacutlyLeader = () => {
               <td>
                 <img src={e.img} className="avatar" alt="" />
               </td>
-              <td className="text-decoration">{e.name}</td>
+              <td className="text-decoration" onClick={() => redirect(e._id)}>
+                {e.name}
+              </td>
               <td>{e.lop}</td>
               <td>{e.birthday}</td>
               <td>

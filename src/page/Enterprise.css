@@ -357,3 +357,11 @@ input {
     background-color:rgb(159, 61, 61) ;
     color: white;
 }
+
+.cut-text { 
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 100px; 
+    height: 1.2em; 
+    white-space: nowrap;
+  }
