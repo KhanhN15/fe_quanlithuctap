@@ -15,6 +15,9 @@ const FacutlyLeader = () => {
 
   const history = useHistory();
 
+  console.log(teacher);
+  console.log(listTeacher);
+
   useEffect(async () => {
     try {
       const res = await axios.get(`${Config.API_URL}/show-depart`);
@@ -22,12 +25,12 @@ const FacutlyLeader = () => {
         setListDepartment(res.data.data);
       }
 
-      const resListStudent = await axios.get(
-        `${Config.API_URL}/show-only-teacher`
-      );
-      if (resListStudent) {
-        setListTeacher(resListStudent.data.data);
-      }
+      // const resListStudent = await axios.get(
+      //   `${Config.API_URL}/show-only-teacher`
+      // );
+      // if (resListStudent) {
+      //   setListTeacher(resListStudent.data.data);
+      // }
     } catch (error) {
       console.log("error");
     }
@@ -51,26 +54,39 @@ const FacutlyLeader = () => {
     }
   }, [department]);
 
-  useEffect(async () => {
-    if (teacher) {
-      const res = await axios.get(
-        `${Config.API_URL}/show-teacher-by-department/${department}`,
-        {
-          teacher: teacher,
-        }
-      );
-      if (res) {
-        setListStudent(res.data.data);
-      }
-    }
-  }, [teacher]);
+  // useEffect(async () => {
+  //   if (teacher) {
+  //     const res = await axios.get(
+  //       `${Config.API_URL}/show-teacher-department/${department}`,
+  //       {
+  //         teacher: teacher,
+  //       }
+  //     );
+  //     if (res) {
+  //       setListStudent(res.data.data);
+  //     } else {
+  //       setListStudent([]);
+  //     }
+  //   }
+  // }, [teacher]);
 
   const handleChangeSelect = (i) => {
     setDepartment(i.target.value);
   };
 
-  const handleSelectTeacher = (i) => {
+  const handleSelectTeacher = async (i) => {
     setTeacher(i.target.value);
+    const res = await axios.get(
+      `${Config.API_URL}/show-teacher-here/${department}/${i.target.value}`,
+      {
+        teacher: i.target.value,
+      }
+    );
+    if (res) {
+      setListStudent(res.data.data);
+    } else {
+      setListStudent([]);
+    }
   };
 
   const redirect = (id) => {

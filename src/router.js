@@ -29,6 +29,11 @@ import ListStudentHasEnterprise from "./page/ListStudentHasEnterprise";
 const routes = [
   //////////
   {
+    path: "/home",
+    exact: true,
+    main: () => <Home />,
+  },
+  {
     path: "/home/enterprise",
     exact: true,
     main: () => <Enterprise />,

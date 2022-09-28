@@ -71,29 +71,6 @@ const ListStudentHasEnterprise = () => {
               <td>{item.birthday}</td>
               <td>{item.address}</td>
               <td>{item?.idDepartment?.nameDepartment}</td>
-              {/* <td>
-                <button
-                  className="btn btn-warning"
-                  style={{ marginRight: "10px" }}
-                  onClick={() => redirectPage(item._id)}
-                >
-                  <i
-                    class="fa-sharp fa-solid fa-circle-info"
-                    style={{ margin: "0 10px" }}
-                  ></i>
-                  Xem Chi Tiết
-                </button>
-                <button
-                  className="btn btn-red"
-                  onClick={() => handleDelete(item._id)}
-                >
-                  <i
-                    class="fa-sharp fa-solid fa-circle-info"
-                    style={{ margin: "0 10px" }}
-                  ></i>
-                  Xóa
-                </button>
-              </td> */}
               <td>{item?.idTeacher?.name}</td>
               <td>{item?.idEnterprise?.nameEnterprise}</td>
             </tr>
