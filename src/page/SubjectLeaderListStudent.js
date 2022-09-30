@@ -118,12 +118,29 @@ const SubjectLeaderListStudent = () => {
     history.push("/home/subject-leader-list");
   };
 
+  const redirectToHere = () => {
+    history.push(`/home/list-student-has-enterprise`);
+  };
+
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
-        <button className="btn btn-info button-if" onClick={handleRedirect}>
+        <button
+          className="btn btn-info button-if"
+          style={{ margin: "0 10px" }}
+          onClick={handleRedirect}
+        >
           <i class="fa-solid fa-circle-info" style={{ margin: "0 5px" }}></i>
           Danh Sách
+        </button>
+        <button
+          className="btn btn-success"
+          style={{
+            float: "right",
+          }}
+          onClick={redirectToHere}
+        >
+          Danh Sách Các Học Sinh Đã Có Doanh Nghiệp
         </button>
         <h2>
           Phân Công Giảng Viên - (thuộc Khoa : {department.nameDepartment})

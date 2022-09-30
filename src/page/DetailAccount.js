@@ -159,6 +159,28 @@ const DetailAccount = () => {
     }
   };
 
+  const showText = (role) => {
+    let string = "";
+    switch (role) {
+      case "student":
+        string = "MSV : ";
+        break;
+      case "teacher":
+        string = "MGV : ";
+        break;
+      case "subjectLeader":
+        string = "MQLBM : ";
+        break;
+      case "facultyLeader":
+        string = "MQLK : ";
+        break;
+      default:
+        string = "MSV : ";
+        break;
+    }
+    return string;
+  };
+
   return (
     <div className="container">
       <Title>Thông tin cá nhân</Title>
@@ -175,7 +197,7 @@ const DetailAccount = () => {
               />
             </Image_div>
             <Left_div>
-              <p style={{ marginTop: "10px" }}>MSV: </p>
+              <p style={{ marginTop: "10px" }}>{showText(student.role)}</p>
               <input
                 style={{ width: "90%" }}
                 type="text"

@@ -40,7 +40,7 @@ export const permission = (role) => {
   let string = "";
   switch (role) {
     case "student":
-      string = "Học Sinh";
+      string = "Sinh Viên";
       break;
     case "teacher":
       string = "Giảng Viên";
@@ -58,7 +58,7 @@ export const permission = (role) => {
       string = "Quản Trị Viên";
       break;
     default:
-      string = "Học Sinh";
+      string = "Sinh Viên";
       break;
   }
   return string;

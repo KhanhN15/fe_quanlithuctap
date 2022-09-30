@@ -43,10 +43,6 @@ const ListManagerAccount = () => {
     history.push(`/home/admin-manager-account`);
   };
 
-  const redirectToHere = () => {
-    history.push(`/home/list-student-has-enterprise`);
-  };
-
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
@@ -60,15 +56,7 @@ const ListManagerAccount = () => {
         >
           Thêm Người Dùng
         </button>
-        <button
-          className="btn btn-success"
-          style={{
-            float: "right",
-          }}
-          onClick={redirectToHere}
-        >
-          Danh Sách Các Học Sinh Đã Có Doanh Nghiệp
-        </button>
+
         <h2>Danh Sách Người Dùng</h2>
       </div>
       <table class="table w-80p">
