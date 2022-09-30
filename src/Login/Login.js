@@ -7,6 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Logo from "./dh.jpg";
 import AppLogo from "./applogo_1.png";
+import { toast } from "react-toastify";
 
 const Body = styled.div`
   // background-color: rgb(186, 248, 255);
@@ -191,14 +192,14 @@ class Login extends Component {
 
     await axios
       .post("http://localhost:5000/login", {
-        username: this.state.username,
-        password: this.state.password,
+        username: this.state.username.toLowerCase(),
+        password: this.state.password.toLowerCase(),
       })
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.data));
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error("Thông tin đăng nhập không chính xác");
       });
     this.setState({
       isLogin: localStorage.getItem("user") ? true : false,

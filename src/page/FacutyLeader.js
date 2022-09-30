@@ -96,25 +96,25 @@ const FacutlyLeader = () => {
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
-        <button className="btn btn-info button-if">
+        {/* <button className="btn btn-info button-if">
           <i
             class="fa-sharp fa-solid fa-chart-simple"
             style={{ margin: "0 5px" }}
           ></i>
           Thống Kê
-        </button>
+        </button> */}
         <h2>Danh Sách Giảng Viên Đã Được Phân Công</h2>
         <span className="attention-here">
-          (Danh sách sinh viên thuộc các Khoa)
+          (Danh sách sinh viên thuộc các Chuyên Ngành)
         </span>
       </div>
       <div className="list-action">
         <div className="form-selector">
           <label className="lb" htmlFor="">
-            Tên Khoa
+            Tên Chuyên Ngành
           </label>
           <select onChange={(i) => handleChangeSelect(i)}>
-            <option value="null">Vui Lòng Chọn Khoa</option>
+            <option value="null">Vui Lòng Chọn Chuyên Ngành</option>
             {listDepartment?.map((item) => (
               <option value={item._id}>{item.nameDepartment}</option>
             ))}
@@ -138,10 +138,12 @@ const FacutlyLeader = () => {
         <thead class="thead-dark">
           <tr>
             <th scope="col">Số Thứ Tự</th>
+            <th scope="col">Mã Sinh Viên</th>
             <th scope="col">Ảnh</th>
             <th scope="col">Tên Sinh Viên</th>
             <th scope="col">Lớp</th>
             <th scope="col">Ngày Sinh</th>
+            <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
           </tr>
         </thead>
@@ -149,6 +151,7 @@ const FacutlyLeader = () => {
           {listStudent.map((e, index) => (
             <tr key={e._id}>
               <td>{index + 1}</td>
+              <td>{e.msv?.toUpperCase()}</td>
               <td>
                 <img src={e.img} className="avatar" alt="" />
               </td>
@@ -157,6 +160,7 @@ const FacutlyLeader = () => {
               </td>
               <td>{e.lop}</td>
               <td>{e.birthday}</td>
+              <td>{e.idDepartment?.nameDepartment}</td>
               <td>
                 <PopTooltip description={e?.idEnterprise?.nameEnterprise}>
                   <span className="color-green">

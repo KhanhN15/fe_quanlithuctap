@@ -31,7 +31,10 @@ const SubjectLeaderListStudent = () => {
         `${Config.API_URL}/show-only-student-no-choose`
       );
       if (resListStudent) {
-        setListStudent(resListStudent.data.data);
+        const listHasFilter = resListStudent.data.data.filter(
+          (el) => !("idTeacher" in el)
+        );
+        setListStudent(listHasFilter);
       }
 
       const nameDp = await axios.get(

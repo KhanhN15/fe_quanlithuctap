@@ -132,7 +132,12 @@ const DetailAccount = () => {
   };
 
   const handleSubmit = async () => {
-    if (!student.name || !student.birthday || !student.address) {
+    if (
+      !student.name ||
+      !student.birthday ||
+      !student.address ||
+      !student.lop
+    ) {
       toast.error("Vui lòng không để trống các trường");
     } else {
       try {
@@ -140,6 +145,7 @@ const DetailAccount = () => {
           name: student.name,
           birthday: student.birthday,
           address: student.address,
+          lop: student.lop,
         });
         if (res) {
           setStatus(!status);
@@ -169,6 +175,13 @@ const DetailAccount = () => {
               />
             </Image_div>
             <Left_div>
+              <p style={{ marginTop: "10px" }}>MSV: </p>
+              <input
+                style={{ width: "90%" }}
+                type="text"
+                disabled
+                value={student.msv?.toUpperCase()}
+              />
               <p style={{ marginTop: "10px" }}>Họ và tên: </p>
               <input
                 style={{ width: "90%" }}
@@ -188,7 +201,13 @@ const DetailAccount = () => {
             </Left_div>
             <Right_div>
               <p>Lớp: </p>
-              <label> {student.lop} </label>
+              <input
+                style={{ width: "90%" }}
+                type="text"
+                name="lop"
+                onChange={(e) => handleChange("lop", e.target.value)}
+                value={student.lop}
+              />
               <p style={{ marginTop: "10px" }}>Địa chỉ: </p>
               <textarea
                 style={{

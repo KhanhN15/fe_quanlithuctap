@@ -54,10 +54,13 @@ const InfoEnterprise = () => {
           <img className="img_enter" src={infoEnterprise.img} alt="" />
           <div className="info_name">
             <ul className="list_info">
+              <li className="item_info" style={{ textTransform: "uppercase" }}>
+                MSV : {infoEnterprise.msv}
+              </li>
               <li className="item_info">Họ và tên : {infoEnterprise.name}</li>
               <li className="item_info">Lớp : {infoEnterprise.lop}</li>
               <li className="item_info">
-                Khoa : {infoEnterprise?.idDepartment?.nameDepartment}{" "}
+                Chuyên Ngành : {infoEnterprise?.idDepartment?.nameDepartment}{" "}
               </li>
               <li className="item_info">Địa chỉ : {infoEnterprise.address}</li>
             </ul>

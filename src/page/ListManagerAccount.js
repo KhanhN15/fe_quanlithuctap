@@ -75,11 +75,8 @@ const ListManagerAccount = () => {
         <thead class="thead-dark">
           <tr>
             <th scope="col">Số Thứ Tự</th>
-            <th scope="col">Tên Sinh Viên</th>
+            <th scope="col">Tên Người Dùng</th>
             <th scope="col">Quyền</th>
-            <th scope="col">Lớp</th>
-            <th scope="col">Ngày Sinh</th>
-            <th scope="col">Địa Chỉ</th>
             <th scope="col">Trạng Thái</th>
           </tr>
         </thead>
@@ -89,9 +86,6 @@ const ListManagerAccount = () => {
               <td>{index + 1}</td>
               <td>{item.name}</td>
               <td style={{ color: "green" }}>{permission(item.role)}</td>
-              <td>{item.lop}</td>
-              <td>{item.birthday}</td>
-              <td>{item.address}</td>
               <td>
                 <button
                   className="btn btn-warning"
