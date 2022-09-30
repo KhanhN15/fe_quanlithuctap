@@ -9,100 +9,171 @@ import { useHistory } from "react-router-dom";
 const SubjectLeaderHasDone = () => {
   const [listTeacher, setListTeacher] = useState([]);
   const [listStudent, setListStudent] = useState([]);
+  const [listDepartment, setListDepartment] = useState([]);
+  const [department, setDepartment] = useState("");
   const [teacher, setTeacher] = useState("");
+
   const history = useHistory();
+
+  console.log(teacher);
+  console.log(listTeacher);
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`${Config.API_URL}/show-only-teacher`);
+      const res = await axios.get(`${Config.API_URL}/show-depart`);
       if (res) {
-        setListTeacher(res.data.data);
+        setListDepartment(res.data.data);
       }
 
-      const resListStudent = await axios.get(
-        `${Config.API_URL}/show-only-student-no-choose`
-      );
-      if (resListStudent) {
-        setListStudent(resListStudent.data.data);
-      }
+      // const resListStudent = await axios.get(
+      //   `${Config.API_URL}/show-only-teacher`
+      // );
+      // if (resListStudent) {
+      //   setListTeacher(resListStudent.data.data);
+      // }
     } catch (error) {
       console.log("error");
     }
   }, []);
 
-  const handleChangeSelect = async (i) => {
-    try {
+  useEffect(async () => {
+    if (department) {
       const res = await axios.get(
-        `${Config.API_URL}/search-by-teacher/${i.target.value}`
+        `${Config.API_URL}/show-teacher-by-department/${department}`
       );
-
       if (res) {
-        setListStudent(res.data.data);
+        setListTeacher(res.data.data);
       }
-    } catch (error) {
-      console.log("error select");
+
+      const resStudent = await axios.get(
+        `${Config.API_URL}/list-student-has-manage-by-department/${department}`
+      );
+      if (resStudent) {
+        setListStudent(resStudent.data.data);
+      }
+    }
+  }, [department]);
+
+  // useEffect(async () => {
+  //   if (teacher) {
+  //     const res = await axios.get(
+  //       `${Config.API_URL}/show-teacher-department/${department}`,
+  //       {
+  //         teacher: teacher,
+  //       }
+  //     );
+  //     if (res) {
+  //       setListStudent(res.data.data);
+  //     } else {
+  //       setListStudent([]);
+  //     }
+  //   }
+  // }, [teacher]);
+
+  const handleChangeSelect = (i) => {
+    setDepartment(i.target.value);
+  };
+
+  const handleSelectTeacher = async (i) => {
+    setTeacher(i.target.value);
+    const res = await axios.get(
+      `${Config.API_URL}/show-teacher-here/${department}/${i.target.value}`,
+      {
+        teacher: i.target.value,
+      }
+    );
+    if (res) {
+      setListStudent(res.data.data);
+    } else {
+      setListStudent([]);
     }
   };
 
-  const redirectPage = (id) => {
-    history.push(`/home/detail-student-manager/${id}`);
+  const redirect = (id) => {
+    history.push(`/home/detail-account/${id}`);
   };
 
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
+        {/* <button className="btn btn-info button-if">
+          <i
+            class="fa-sharp fa-solid fa-chart-simple"
+            style={{ margin: "0 5px" }}
+          ></i>
+          Thống Kê
+        </button> */}
         <h2>Danh Sách Giảng Viên Đã Được Phân Công</h2>
         <span className="attention-here">
-          *(Mỗi Giảng Viên Quản Lí Tối Đa 15 Sinh Viên)
+          (Danh sách sinh viên thuộc các Chuyên Ngành)
         </span>
       </div>
-      <div className="form-selector">
-        <select onChange={(i) => handleChangeSelect(i)}>
-          <option value="null">Vui Lòng Chọn Giáo Viên</option>
-          {listTeacher?.map((item) => (
-            <option value={item._id}>{item.name}</option>
-          ))}
-        </select>
+      <div className="list-action">
+        <div className="form-selector">
+          <label className="lb" htmlFor="">
+            Tên Chuyên Ngành
+          </label>
+          <select onChange={(i) => handleChangeSelect(i)}>
+            <option value="null">Vui Lòng Chọn Chuyên Ngành</option>
+            {listDepartment?.map((item) => (
+              <option value={item._id}>{item.nameDepartment}</option>
+            ))}
+          </select>
+        </div>
+        {department && (
+          <div className="form-selector">
+            <label className="lb" htmlFor="">
+              Tên Giảng Viên
+            </label>
+            <select onChange={(i) => handleSelectTeacher(i)}>
+              <option value="null">Vui Lòng Chọn Giáo Viên</option>
+              {listTeacher?.map((item) => (
+                <option value={item._id}>{item.name}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
       <table class="table w-80p">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Số Thứ Tự</th>
+            <th scope="col">Mã Sinh Viên</th>
             <th scope="col">Ảnh</th>
             <th scope="col">Tên Sinh Viên</th>
             <th scope="col">Lớp</th>
             <th scope="col">Ngày Sinh</th>
-            <th scope="col">Địa Chỉ</th>
+            <th scope="col">Chuyên Ngành</th>
+            <th scope="col">Địa Chỉ Thực Tập</th>
           </tr>
         </thead>
         <tbody>
-          {listStudent.length > 0 ? (
-            listStudent.map((item, index) => (
-              <tr key={item._id}>
-                <td>{index + 1}</td>
-                <td>
-                  <img src={item.img} className="avatar" alt="" />
-                </td>
-                <td
-                  className="text-decoration"
-                  onClick={() => redirectPage(item._id)}
-                >
-                  {item.name}
-                </td>
-                <td>{item.lop}</td>
-                <td>{item.birthday}</td>
-                <td>
-                  <PopTooltip description={item.address}>
-                    <span>{item.address}</span>
-                  </PopTooltip>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <span>Không Có Sinh Viên</span>
+          {listStudent.map((e, index) => (
+            <tr key={e._id}>
+              <td>{index + 1}</td>
+              <td>{e.msv?.toUpperCase()}</td>
+              <td>
+                <img src={e.img} className="avatar" alt="" />
+              </td>
+              <td className="text-decoration" onClick={() => redirect(e._id)}>
+                {e.name}
+              </td>
+              <td>{e.lop}</td>
+              <td>{e.birthday}</td>
+              <td>{e.idDepartment?.nameDepartment}</td>
+              <td>
+                <PopTooltip description={e?.idEnterprise?.nameEnterprise}>
+                  <span className="color-green">
+                    {e?.idEnterprise?.nameEnterprise || (
+                      <span className="color-red">
+                        Chưa chọn công ty thực tập
+                      </span>
+                    )}
+                  </span>
+                </PopTooltip>
+              </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
