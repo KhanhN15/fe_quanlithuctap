@@ -70,6 +70,10 @@ const SubjectLeaderHasDone = () => {
   //   }
   // }, [teacher]);
 
+  const redirectPage = (id) => {
+    history.push(`/home/detail-student-manager/${id}`);
+  };
+
   const handleChangeSelect = (i) => {
     setDepartment(i.target.value);
   };
@@ -155,7 +159,10 @@ const SubjectLeaderHasDone = () => {
               <td>
                 <img src={e.img} className="avatar" alt="" />
               </td>
-              <td className="text-decoration" onClick={() => redirect(e._id)}>
+              <td
+                className="text-decoration"
+                onClick={() => redirectPage(e._id)}
+              >
                 {e.name}
               </td>
               <td>{e.lop}</td>
