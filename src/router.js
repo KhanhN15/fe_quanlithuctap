@@ -25,6 +25,7 @@ import DetailAccount from "./page/DetailAccount";
 import ListManagerEnterprise from "./page/ListManagerEnterprise";
 import CreateEnterprise from "./page/CreateEnterprise";
 import ListStudentHasEnterprise from "./page/ListStudentHasEnterprise";
+import PDF from "./page/PDF";
 
 const routes = [
   //////////
@@ -108,6 +109,11 @@ const routes = [
     path: "/home/list-student-has-enterprise",
     exact: true,
     main: () => <ListStudentHasEnterprise />,
+  },
+  {
+    path: "/show-pdf/:id",
+    exact: true,
+    main: () => <PDF />,
   },
 ];
 

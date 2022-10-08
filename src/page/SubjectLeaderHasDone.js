@@ -12,11 +12,9 @@ const SubjectLeaderHasDone = () => {
   const [listDepartment, setListDepartment] = useState([]);
   const [department, setDepartment] = useState("");
   const [teacher, setTeacher] = useState("");
+  const [status, setStatus] = useState(false);
 
   const history = useHistory();
-
-  console.log(teacher);
-  console.log(listTeacher);
 
   useEffect(async () => {
     try {
@@ -93,6 +91,19 @@ const SubjectLeaderHasDone = () => {
     }
   };
 
+  const changeStatus = async (id) => {
+    try {
+      const res = await axios.put(`${Config.API_URL}/pdf-status/${id}`, {
+        status: "done",
+      });
+      if (res) {
+        setStatus(!status);
+      }
+    } catch (error) {
+      console.log("loi");
+    }
+  };
+
   const redirect = (id) => {
     history.push(`/home/detail-account/${id}`);
   };
@@ -149,6 +160,9 @@ const SubjectLeaderHasDone = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
+            <th scope="col">Xem Báo Cáo</th>
+            <th scope="col">Xem Báo Cáo</th>
+            <th scope="col">Duyệt Báo Cáo</th>
           </tr>
         </thead>
         <tbody>
@@ -178,6 +192,35 @@ const SubjectLeaderHasDone = () => {
                     )}
                   </span>
                 </PopTooltip>
+              </td>
+              {e.file ? (
+                <td
+                  style={{ color: "blue", cursor: "pointer" }}
+                  onClick={() => history.push(`/show-pdf/${e._id}`)}
+                >
+                  xem
+                </td>
+              ) : (
+                <td style={{ color: "blue", cursor: "pointer" }}>
+                  Chưa Có Báo Cáo
+                </td>
+              )}
+              {e.isReview === "done" ? (
+                <td style={{ color: "green" }}>
+                  {Config.checkStatus(e.isReview)}
+                </td>
+              ) : (
+                <td style={{ color: "red" }}>
+                  {Config.checkStatus(e.isReview)}
+                </td>
+              )}
+              <td>
+                <button
+                  className="btn btn-success"
+                  onClick={() => changeStatus(e._id)}
+                >
+                  Duyet
+                </button>
               </td>
             </tr>
           ))}

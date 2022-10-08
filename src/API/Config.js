@@ -8,20 +8,25 @@ export const getDataLocalStorage = () => {
 
 export const checkStatus = (keyStatus) => {
   let string = "";
-  switch (keyStatus) {
-    case "wait":
-      string = "Đang Chờ Xét Duyệt";
-      break;
-    case "cancel":
-      string = "Đã Bị Hủy";
-      break;
-    case "done":
-      string = "Thành Công";
-      break;
-    default:
-      string = "Đang Chờ Xét Duyệt";
-      break;
+  if (!keyStatus) {
+    string = "Đang Chờ Xét Duyệt";
+  } else {
+    switch (keyStatus) {
+      case "wait":
+        string = "Đang Chờ Xét Duyệt";
+        break;
+      case "cancel":
+        string = "Đã Bị Hủy";
+        break;
+      case "done":
+        string = "Thành Công";
+        break;
+      default:
+        string = "Đang Chờ Xét Duyệt";
+        break;
+    }
   }
+
   return string;
 };
 
