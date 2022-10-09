@@ -43,7 +43,7 @@ const SubjectLeaderHasDone = () => {
         setListStudent(resStudent.data.data);
       }
     }
-  }, [department]);
+  }, [department, status]);
 
   const redirectPage = (id) => {
     history.push(`/home/detail-student-manager/${id}`);
