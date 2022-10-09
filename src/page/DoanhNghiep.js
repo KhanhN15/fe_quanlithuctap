@@ -9,6 +9,8 @@ const DoanhNghiep = () => {
   const [listEnterprise, setListEnterprise] = useState([]);
   const { idEnterprise } = getDataLocalStorage();
   const [status, setStatus] = useState(false);
+  const [comment, setComment] = useState("");
+  const [openComment, setOpenComment] = useState(0);
 
   useEffect(async () => {
     try {
@@ -58,6 +60,21 @@ const DoanhNghiep = () => {
     }
   };
 
+  const submitComment = async (id) => {
+    try {
+      const res = await axios.put(`${Config.API_URL}/add-comment/${id}`, {
+        comment: comment,
+      });
+      if (res) {
+        toast.success("Đánh Giá Sinh Viên Thành Công");
+        setComment("");
+        setStatus(!status);
+      }
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
   return (
     <>
       <div className="main__enterprise">
@@ -83,6 +100,7 @@ const DoanhNghiep = () => {
                 <th scope="col">Tên Sinh Viên</th>
                 <th scope="col">Ngày Sinh</th>
                 <th scope="col">Xác Nhận Thực Tập</th>
+                <th scope="col">Nhận xét</th>
                 <th scope="col">Xóa Tiến Độ</th>
               </tr>
             </thead>
@@ -109,6 +127,37 @@ const DoanhNghiep = () => {
                         type="checkbox"
                         onClick={() => handleConfirm(item._id)}
                       />
+                    )}
+                  </td>
+                  {/* <td>
+                    
+                  </td> */}
+                  <td>
+                    {openComment === index ? (
+                      <>
+                        {item.comment ? (
+                          <p style={{ color: "green" }}>Đã Nhận Xét</p>
+                        ) : (
+                          <div className="form-group d-flex">
+                            <label htmlFor=""></label>
+                            <input
+                              type="text"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                            />
+                            <button onClick={() => submitComment(item._id)}>
+                              Submit
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <button
+                        className="btn"
+                        onClick={() => setOpenComment(index)}
+                      >
+                        Mở Đánh Giá
+                      </button>
                     )}
                   </td>
                   <td>

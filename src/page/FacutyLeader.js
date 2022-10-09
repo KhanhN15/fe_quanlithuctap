@@ -12,11 +12,9 @@ const FacutlyLeader = () => {
   const [listDepartment, setListDepartment] = useState([]);
   const [department, setDepartment] = useState("");
   const [teacher, setTeacher] = useState("");
+  const [search, setSearch] = useState("");
 
   const history = useHistory();
-
-  console.log(teacher);
-  console.log(listTeacher);
 
   useEffect(async () => {
     try {
@@ -24,17 +22,19 @@ const FacutlyLeader = () => {
       if (res) {
         setListDepartment(res.data.data);
       }
-
-      // const resListStudent = await axios.get(
-      //   `${Config.API_URL}/show-only-teacher`
-      // );
-      // if (resListStudent) {
-      //   setListTeacher(resListStudent.data.data);
-      // }
     } catch (error) {
       console.log("error");
     }
   }, []);
+
+  useEffect(async () => {
+    if (search) {
+      const res = await axios.get(`${Config.API_URL}/search-full/${search}`);
+      if (res) {
+        setListStudent(res.data.data);
+      }
+    }
+  }, [search]);
 
   useEffect(async () => {
     if (department) {
@@ -111,6 +111,16 @@ const FacutlyLeader = () => {
       <div className="list-action">
         <div className="form-selector">
           <label className="lb" htmlFor="">
+            Tìm Kiếm
+          </label>
+          <input
+            onChange={(e) => setSearch(e.target.value)}
+            style={{ marginTop: "10px", padding: "3px", marginLeft: "10px" }}
+            type="text"
+          />
+        </div>
+        <div className="form-selector">
+          <label className="lb" htmlFor="">
             Tên Chuyên Ngành
           </label>
           <select onChange={(i) => handleChangeSelect(i)}>
@@ -145,6 +155,7 @@ const FacutlyLeader = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
+            <th scope="col">Nhận Xét Doanh Nghiệp</th>
           </tr>
         </thead>
         <tbody>
@@ -170,6 +181,11 @@ const FacutlyLeader = () => {
                       </span>
                     )}
                   </span>
+                </PopTooltip>
+              </td>
+              <td>
+                <PopTooltip description={e.comment}>
+                  <div className="text-trun">{e.comment}</div>
                 </PopTooltip>
               </td>
             </tr>

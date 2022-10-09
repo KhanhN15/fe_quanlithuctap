@@ -43,6 +43,10 @@ const ListManagerAccount = () => {
     history.push(`/home/admin-manager-account`);
   };
 
+  const handleRedirectCreateDN = () => {
+    history.push(`/home/admin-manager-account-dn`);
+  };
+
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
@@ -55,6 +59,16 @@ const ListManagerAccount = () => {
           onClick={handleRedirectCreate}
         >
           Thêm Người Dùng
+        </button>
+        <button
+          className="btn btn-success"
+          style={{
+            float: "right",
+            marginLeft: "10px",
+          }}
+          onClick={handleRedirectCreateDN}
+        >
+          Thêm Doanh Nghiệp
         </button>
 
         <h2>Danh Sách Người Dùng</h2>

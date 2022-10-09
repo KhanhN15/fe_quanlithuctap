@@ -365,3 +365,10 @@ input {
     height: 1.2em; 
     white-space: nowrap;
   }
+
+  .text-trun {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }

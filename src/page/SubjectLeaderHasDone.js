@@ -22,17 +22,10 @@ const SubjectLeaderHasDone = () => {
       if (res) {
         setListDepartment(res.data.data);
       }
-
-      // const resListStudent = await axios.get(
-      //   `${Config.API_URL}/show-only-teacher`
-      // );
-      // if (resListStudent) {
-      //   setListTeacher(resListStudent.data.data);
-      // }
     } catch (error) {
       console.log("error");
     }
-  }, []);
+  }, [status]);
 
   useEffect(async () => {
     if (department) {
@@ -51,22 +44,6 @@ const SubjectLeaderHasDone = () => {
       }
     }
   }, [department]);
-
-  // useEffect(async () => {
-  //   if (teacher) {
-  //     const res = await axios.get(
-  //       `${Config.API_URL}/show-teacher-department/${department}`,
-  //       {
-  //         teacher: teacher,
-  //       }
-  //     );
-  //     if (res) {
-  //       setListStudent(res.data.data);
-  //     } else {
-  //       setListStudent([]);
-  //     }
-  //   }
-  // }, [teacher]);
 
   const redirectPage = (id) => {
     history.push(`/home/detail-student-manager/${id}`);
@@ -106,6 +83,32 @@ const SubjectLeaderHasDone = () => {
 
   const redirect = (id) => {
     history.push(`/home/detail-account/${id}`);
+  };
+
+  const dowloandFilePdf = async (id) => {
+    // fetch(`/show-pdf/${id}`).then((response) => {
+    //   console.log("====================================");
+    //   console.log(response);
+    //   console.log("====================================");
+    //   // response.blob().then((blob) => {
+    //   //   // Creating new object of PDF file
+    //   //   const fileURL = window.URL.createObjectURL(response.file);
+    //   //   // Setting various property values
+    //   //   let alink = document.createElement("a");
+    //   //   alink.href = fileURL;
+    //   //   alink.download = response.file;
+    //   //   alink.click();
+    //   // });
+    // });
+    const res = await axios.get(`${Config.API_URL}/show-all-pdf-course/${id}`);
+    if (res.data?.data?.file) {
+      const linkSource = res.data.data.file;
+      const downloadLink = document.createElement("a");
+      const fileName = res.data.data.name;
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    }
   };
 
   return (
@@ -196,7 +199,7 @@ const SubjectLeaderHasDone = () => {
               {e.file ? (
                 <td
                   style={{ color: "blue", cursor: "pointer" }}
-                  onClick={() => history.push(`/show-pdf/${e._id}`)}
+                  onClick={() => dowloandFilePdf(e._id)}
                 >
                   xem
                 </td>

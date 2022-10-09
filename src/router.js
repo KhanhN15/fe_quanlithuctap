@@ -25,10 +25,9 @@ import DetailAccount from "./page/DetailAccount";
 import ListManagerEnterprise from "./page/ListManagerEnterprise";
 import CreateEnterprise from "./page/CreateEnterprise";
 import ListStudentHasEnterprise from "./page/ListStudentHasEnterprise";
-import PDF from "./page/PDF";
+import AdminManageAccountDN from "./page/AdminManageAccountDN";
 
 const routes = [
-  //////////
   {
     path: "/home",
     exact: true,
@@ -86,6 +85,11 @@ const routes = [
     main: () => <AdminManageAccount />,
   },
   {
+    path: "/home/admin-manager-account-dn",
+    exact: true,
+    main: () => <AdminManageAccountDN />,
+  },
+  {
     path: "/home/list-manager-account",
     exact: true,
     main: () => <ListManagerAccount />,
@@ -109,11 +113,6 @@ const routes = [
     path: "/home/list-student-has-enterprise",
     exact: true,
     main: () => <ListStudentHasEnterprise />,
-  },
-  {
-    path: "/show-pdf/:id",
-    exact: true,
-    main: () => <PDF />,
   },
 ];
 
