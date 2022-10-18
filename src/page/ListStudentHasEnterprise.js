@@ -54,6 +54,7 @@ const ListStudentHasEnterprise = () => {
             <th scope="col">Tên Sinh Viên</th>
             <th scope="col">Quyền</th>
             <th scope="col">Lớp</th>
+            <th scope="col">MSV</th>
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Địa Chỉ</th>
             <th scope="col">Khoa</th>
@@ -68,6 +69,7 @@ const ListStudentHasEnterprise = () => {
               <td>{item.name}</td>
               <td style={{ color: "green" }}>{permission(item.role)}</td>
               <td>{item.lop}</td>
+              <td>{item.msv}</td>
               <td>{item.birthday}</td>
               <td>{item.address}</td>
               <td>{item?.idDepartment?.nameDepartment}</td>

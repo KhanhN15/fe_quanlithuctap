@@ -9,6 +9,7 @@ const AdminManageAccount = () => {
   const [depart, setDepart] = useState([]);
   const [item, setItem] = useState({
     name: "",
+    msv: "",
     password: "",
     birthday: "",
     idDepartment: "",
@@ -46,6 +47,7 @@ const AdminManageAccount = () => {
   const clean = () => {
     setItem({
       name: "",
+      msv: "",
       password: "",
       birthday: "",
       idDepartment: "",
@@ -63,6 +65,7 @@ const AdminManageAccount = () => {
     e.preventDefault();
     const {
       name,
+      msv,
       password,
       birthday,
       idDepartment,
@@ -78,6 +81,7 @@ const AdminManageAccount = () => {
       const res = await axios.post(`${Config.API_URL}/create-account-student`, {
         name,
         password,
+        msv,
         birthday,
         idDepartment,
         idTeacher,
@@ -129,6 +133,15 @@ const AdminManageAccount = () => {
                   name="msv"
                   value={item.password}
                   onChange={(e) => changeInput("password", e.target.value)}
+                />
+                <label>MSV: </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  required
+                  name="msv"
+                  value={item.msv}
+                  onChange={(e) => changeInput("msv", e.target.value)}
                 />
                 <label>Ngày sinh: </label>
                 <input

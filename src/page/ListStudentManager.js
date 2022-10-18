@@ -55,6 +55,7 @@ const ListStudentManager = () => {
           <tr>
             <th scope="col">Số Thứ Tự</th>
             <th scope="col">Tên Sinh Viên</th>
+            <th scope="col">MSV</th>
             <th scope="col">Lớp</th>
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Địa Chỉ</th>
@@ -67,6 +68,7 @@ const ListStudentManager = () => {
             <tr key={item._id}>
               <td>{index + 1}</td>
               <td>{item.name}</td>
+              <td>{item.msv}</td>
               <td>{item.lop}</td>
               <td>{item.birthday}</td>
               <td>{item.address}</td>

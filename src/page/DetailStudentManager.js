@@ -152,6 +152,7 @@ const DetailStudentManager = () => {
           <h4 className="name-chinh">{student.name}</h4>
           <ul>
             <li>Lớp : {student.lop} </li>
+            <li>MSV : {student.msv} </li>
             <li>Địa Chỉ: {student.address}</li>
             <li>
               Công Ty Đang Thực Tập : {student?.idEnterprise?.nameEnterprise}

@@ -26,6 +26,7 @@ import ListManagerEnterprise from "./page/ListManagerEnterprise";
 import CreateEnterprise from "./page/CreateEnterprise";
 import ListStudentHasEnterprise from "./page/ListStudentHasEnterprise";
 import AdminManageAccountDN from "./page/AdminManageAccountDN";
+import StudentAnother from "./page/StudentAnother";
 
 const routes = [
   {
@@ -113,6 +114,11 @@ const routes = [
     path: "/home/list-student-has-enterprise",
     exact: true,
     main: () => <ListStudentHasEnterprise />,
+  },
+  {
+    path: "/home/list-student-another",
+    exact: true,
+    main: () => <StudentAnother />,
   },
 ];
 
