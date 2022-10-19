@@ -93,6 +93,21 @@ const FacutlyLeader = () => {
     history.push(`/home/detail-account/${id}`);
   };
 
+  const showTimeStart = (dateNow) => {
+    const today = new Date(dateNow);
+    return today?.toLocaleDateString() || "";
+  };
+
+  const showTimeEnd = (dateNow) => {
+    const today = new Date(dateNow);
+    const nextweek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 70
+    );
+    return nextweek?.toLocaleDateString() || "";
+  };
+
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
@@ -155,7 +170,8 @@ const FacutlyLeader = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
-            <th scope="col">Nhận Xét Doanh Nghiệp</th>
+            <th scope="col">Ngày Bắt Đầu Thực Tập</th>
+            <th scope="col">Ngày Kết Thúc Thực Tập</th>
           </tr>
         </thead>
         <tbody>
@@ -183,11 +199,8 @@ const FacutlyLeader = () => {
                   </span>
                 </PopTooltip>
               </td>
-              <td>
-                <PopTooltip description={e.comment}>
-                  <div className="text-trun">{e.comment}</div>
-                </PopTooltip>
-              </td>
+              <td>{showTimeStart(e.timeStart)}</td>
+              <td>{showTimeEnd(e.timeStart)}</td>
             </tr>
           ))}
         </tbody>

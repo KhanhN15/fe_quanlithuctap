@@ -198,22 +198,16 @@ const DetailStudentManager = () => {
                     )}
                   </td>
                   <td>
-                    {item.point || role === "subjectLeader" ? (
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => showReport(item._id)}
-                      >
-                        <i
-                          class="fa-sharp fa-solid fa-circle-info"
-                          style={{ margin: "0 10px" }}
-                        ></i>
-                        Xem Báo Cáo
-                      </button>
-                    ) : (
-                      <button className="btn btn-warning">
-                        Bạn Không Có quyền Cập Nhật Điểm
-                      </button>
-                    )}
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => showReport(item._id)}
+                    >
+                      <i
+                        class="fa-sharp fa-solid fa-circle-info"
+                        style={{ margin: "0 10px" }}
+                      ></i>
+                      Xem Báo Cáo
+                    </button>
                   </td>
                   <td>
                     <i

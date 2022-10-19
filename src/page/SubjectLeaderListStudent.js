@@ -99,6 +99,7 @@ const SubjectLeaderListStudent = () => {
           {
             idDepartment: idDepartment,
             idTeacher: teacher,
+            timeStart: new Date(),
           }
         );
       } catch (error) {
@@ -126,6 +127,10 @@ const SubjectLeaderListStudent = () => {
 
   const redirectToHere = () => {
     history.push(`/home/list-student-has-enterprise`);
+  };
+
+  const redirectToHereNo = () => {
+    history.push(`/home/list-student-no-enterprise`);
   };
 
   const showNameColumn = (string) => {
@@ -165,7 +170,7 @@ const SubjectLeaderListStudent = () => {
   const addStudent = async () => {
     const a =
       (await rowData.length) > 0 &&
-      rowData.map(async (item) => {
+      rowData.slice(0, -1).map(async (item) => {
         const res = await axios.post(
           `${Config.API_URL}/create-account-student-hi`,
           {
@@ -173,12 +178,12 @@ const SubjectLeaderListStudent = () => {
             password: item.password,
             msv: item.msv,
             birthday: item.birthday,
-            idDepartment: item.idDepartment,
+            idEnterprise: item.idEnterprise,
             lop: item.lop,
             address: item.address,
             role: item.role,
             img: "https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg",
-            isAccept: "wait",
+            isAccept: "done",
             isTeacherAccept: "wait",
           }
         );
@@ -192,8 +197,6 @@ const SubjectLeaderListStudent = () => {
       setColumnData([]);
     }
   };
-
-  console.log(rowData);
   return (
     <>
       <div className="main__enterprise">
@@ -212,9 +215,19 @@ const SubjectLeaderListStudent = () => {
               float: "right",
               margin: "0 10px",
             }}
+            onClick={redirectToHereNo}
+          >
+            Danh Sách Sinh Viên Chưa Có Doanh Nghiệp
+          </button>
+          <button
+            className="btn btn-success"
+            style={{
+              float: "right",
+              margin: "0 10px",
+            }}
             onClick={redirectToHere}
           >
-            Danh Sách Các Học Sinh Đã Có Doanh Nghiệp
+            Danh Sách Sinh Viên Đã Có Doanh Nghiệp
           </button>
           <h2>
             Phân Công Giảng Viên - (thuộc Khoa : {department.nameDepartment})
@@ -238,11 +251,11 @@ const SubjectLeaderListStudent = () => {
                 <input type="checkbox" onClick={checkFull} />
               </th>
               <th scope="col">Số Thứ Tự</th>
-              <th scope="col">Ảnh</th>
               <th scope="col">Tên Sinh Viên</th>
+              <th scope="col">MSV</th>
               <th scope="col">Lớp</th>
               <th scope="col">Ngày Sinh</th>
-              <th scope="col">Địa Chỉ</th>
+              <th scope="col">Tên Công Ty Thực Tập</th>
             </tr>
           </thead>
           <tbody>
@@ -256,15 +269,19 @@ const SubjectLeaderListStudent = () => {
                   />
                 </td>
                 <td>{index + 1}</td>
-                <td>
-                  <img src={item.img} className="avatar" alt="" />
-                </td>
                 <td className="text-decoration">{item.name}</td>
+                <td>{item.msv}</td>
                 <td>{item.lop}</td>
                 <td>{item.birthday}</td>
                 <td>
                   <PopTooltip description={item.address}>
-                    <span>{item.address}</span>
+                    <span>
+                      {item?.idEnterprise?.nameEnterprise || (
+                        <span style={{ color: "red" }}>
+                          Chưa có địa điểm thực tập
+                        </span>
+                      )}
+                    </span>
                   </PopTooltip>
                 </td>
               </tr>

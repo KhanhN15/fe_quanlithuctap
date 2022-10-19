@@ -45,10 +45,6 @@ const SubjectLeaderHasDone = () => {
     }
   }, [department, status]);
 
-  const redirectPage = (id) => {
-    history.push(`/home/detail-student-manager/${id}`);
-  };
-
   const handleChangeSelect = (i) => {
     setDepartment(i.target.value);
   };
@@ -86,20 +82,6 @@ const SubjectLeaderHasDone = () => {
   };
 
   const dowloandFilePdf = async (id) => {
-    // fetch(`/show-pdf/${id}`).then((response) => {
-    //   console.log("====================================");
-    //   console.log(response);
-    //   console.log("====================================");
-    //   // response.blob().then((blob) => {
-    //   //   // Creating new object of PDF file
-    //   //   const fileURL = window.URL.createObjectURL(response.file);
-    //   //   // Setting various property values
-    //   //   let alink = document.createElement("a");
-    //   //   alink.href = fileURL;
-    //   //   alink.download = response.file;
-    //   //   alink.click();
-    //   // });
-    // });
     const res = await axios.get(`${Config.API_URL}/show-all-pdf-course/${id}`);
     if (res.data?.data?.file) {
       const linkSource = res.data.data.file;
@@ -114,13 +96,6 @@ const SubjectLeaderHasDone = () => {
   return (
     <div className="main__enterprise">
       <div className="title__enterprise">
-        {/* <button className="btn btn-info button-if">
-          <i
-            class="fa-sharp fa-solid fa-chart-simple"
-            style={{ margin: "0 5px" }}
-          ></i>
-          Thống Kê
-        </button> */}
         <h2>Danh Sách Giảng Viên Đã Được Phân Công</h2>
         <span className="attention-here">
           (Danh sách sinh viên thuộc các Chuyên Ngành)
@@ -163,9 +138,9 @@ const SubjectLeaderHasDone = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
+            {/* <th scope="col">Xem Báo Cáo</th>
             <th scope="col">Xem Báo Cáo</th>
-            <th scope="col">Xem Báo Cáo</th>
-            <th scope="col">Duyệt Báo Cáo</th>
+            <th scope="col">Duyệt Báo Cáo</th> */}
           </tr>
         </thead>
         <tbody>
@@ -176,12 +151,7 @@ const SubjectLeaderHasDone = () => {
               <td>
                 <img src={e.img} className="avatar" alt="" />
               </td>
-              <td
-                className="text-decoration"
-                onClick={() => redirectPage(e._id)}
-              >
-                {e.name}
-              </td>
+              <td className="text-decoration">{e.name}</td>
               <td>{e.lop}</td>
               <td>{e.birthday}</td>
               <td>{e.idDepartment?.nameDepartment}</td>
@@ -196,7 +166,7 @@ const SubjectLeaderHasDone = () => {
                   </span>
                 </PopTooltip>
               </td>
-              {e.file ? (
+              {/*  {e.file ? (
                 <td
                   style={{ color: "blue", cursor: "pointer" }}
                   onClick={() => dowloandFilePdf(e._id)}
@@ -224,7 +194,7 @@ const SubjectLeaderHasDone = () => {
                 >
                   Duyet
                 </button>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>

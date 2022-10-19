@@ -75,6 +75,21 @@ const DoanhNghiep = () => {
     }
   };
 
+  const showTimeStart = (dateNow) => {
+    const today = new Date(dateNow);
+    return today?.toLocaleDateString() || "";
+  };
+
+  const showTimeEnd = (dateNow) => {
+    const today = new Date(dateNow);
+    const nextweek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 70
+    );
+    return nextweek?.toLocaleDateString() || "";
+  };
+
   return (
     <>
       <div className="main__enterprise">
@@ -99,6 +114,8 @@ const DoanhNghiep = () => {
                 <th scope="col">Hình Ảnh</th>
                 <th scope="col">Tên Sinh Viên</th>
                 <th scope="col">Ngày Sinh</th>
+                <th scope="col">Ngày Bắt Đầu Thực Tập</th>
+                <th scope="col">Ngày Kết Thúc Thực Tập</th>
                 <th scope="col">Xác Nhận Thực Tập</th>
                 <th scope="col">Nhận xét</th>
                 <th scope="col">Xóa Tiến Độ</th>
@@ -117,6 +134,8 @@ const DoanhNghiep = () => {
                   </td>
                   <td>{item.name}</td>
                   <td>{item.birthday}</td>
+                  <td>{showTimeStart(item.timeStart)}</td>
+                  <td>{showTimeEnd(item.timeStart)}</td>
                   <td>
                     {item.isAccept === CONSTANT.DONE ? (
                       <span>

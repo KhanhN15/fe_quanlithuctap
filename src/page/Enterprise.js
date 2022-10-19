@@ -58,8 +58,8 @@ const Enterprise = () => {
         <h2>Danh sách các công ty tuyển thực tập</h2>
       </div>
       <div className="show-alert">
-        Sinh viên <span className="attention-alert">chưa có chỗ thực tập</span>{" "}
-        cần tiến hành đăng ký thực tập trong thời gian sớm nhất
+        Sinh viên <span className="attention-alert"></span> cần tiến hành đăng
+        ký thực tập trong thời gian sớm nhất
       </div>
       <div className="list-card">
         {listEnterprise?.map((item) => (
