@@ -45,6 +45,10 @@ const SubjectLeaderHasDone = () => {
     }
   }, [department, status]);
 
+  const redirectPage = (id) => {
+    history.push(`/home/detail-student-manager/${id}`);
+  };
+
   const handleChangeSelect = (i) => {
     setDepartment(i.target.value);
   };
@@ -138,9 +142,9 @@ const SubjectLeaderHasDone = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
-            {/* <th scope="col">Xem Báo Cáo</th>
             <th scope="col">Xem Báo Cáo</th>
-            <th scope="col">Duyệt Báo Cáo</th> */}
+            <th scope="col">Xem Báo Cáo</th>
+            <th scope="col">Duyệt Báo Cáo</th>
           </tr>
         </thead>
         <tbody>
@@ -151,7 +155,12 @@ const SubjectLeaderHasDone = () => {
               <td>
                 <img src={e.img} className="avatar" alt="" />
               </td>
-              <td className="text-decoration">{e.name}</td>
+              <td
+                className="text-decoration"
+                onClick={() => redirectPage(e._id)}
+              >
+                {e.name}
+              </td>
               <td>{e.lop}</td>
               <td>{e.birthday}</td>
               <td>{e.idDepartment?.nameDepartment}</td>
@@ -166,7 +175,7 @@ const SubjectLeaderHasDone = () => {
                   </span>
                 </PopTooltip>
               </td>
-              {/*  {e.file ? (
+              {e.file ? (
                 <td
                   style={{ color: "blue", cursor: "pointer" }}
                   onClick={() => dowloandFilePdf(e._id)}
@@ -194,7 +203,7 @@ const SubjectLeaderHasDone = () => {
                 >
                   Duyet
                 </button>
-              </td> */}
+              </td>
             </tr>
           ))}
         </tbody>
