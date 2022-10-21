@@ -142,9 +142,9 @@ const SubjectLeaderHasDone = () => {
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Chuyên Ngành</th>
             <th scope="col">Địa Chỉ Thực Tập</th>
-            <th scope="col">Xem Báo Cáo</th>
-            <th scope="col">Xem Báo Cáo</th>
-            <th scope="col">Duyệt Báo Cáo</th>
+            <th scope="col">Xem Đề Cương</th>
+            <th scope="col">Trạng Thái</th>
+            <th scope="col">Duyệt Đề Cương</th>
           </tr>
         </thead>
         <tbody>
@@ -184,7 +184,7 @@ const SubjectLeaderHasDone = () => {
                 </td>
               ) : (
                 <td style={{ color: "blue", cursor: "pointer" }}>
-                  Chưa Có Báo Cáo
+                  Chưa Có Đề Cương
                 </td>
               )}
               {e.isReview === "done" ? (

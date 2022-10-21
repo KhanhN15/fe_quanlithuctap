@@ -144,7 +144,7 @@ const InfoEnterprise = () => {
           </div>
         </div>
       </div>
-      {infoEnterprise.isReview === "done" ? (
+      {infoEnterprise.isAccept === CONSTANT.DONE ? (
         <>
           <table class="table">
             <thead class="thead-dark">

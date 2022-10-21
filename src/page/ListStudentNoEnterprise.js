@@ -74,7 +74,7 @@ const ListStudentNoEnterprise = () => {
               <td>{item.address}</td>
               <td>{item?.idDepartment?.nameDepartment}</td>
               <td>{item?.idTeacher?.name}</td>
-              <td>{item?.idEnterprise?.nameEnterprise}</td>
+              <td>{item?.isAccept === "wait" && ""}</td>
             </tr>
           ))}
         </tbody>
